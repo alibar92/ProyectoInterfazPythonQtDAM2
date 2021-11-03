@@ -1,7 +1,7 @@
 import sys
 import requests, json
 from PyQt5.QtWidgets import(
-    QApplication, QMainWindow
+    QApplication, QMainWindow, QWidget
 )
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import Qt
@@ -16,6 +16,8 @@ class Frutas(QMainWindow, Ui_MainWindow):
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        #lectura del archivo qss de estilo
+        self.setStyleSheet(open("estilos.qss", "r").read())
         self.setWindowTitle("Tabla Nutricional de Frutas")
         self.cargarFrutas()
         #creo una variable para guardar la info de la fruta elegida
