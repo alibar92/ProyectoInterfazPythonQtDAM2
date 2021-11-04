@@ -9,15 +9,6 @@
 
 QMainWindow {
 	background-image:url(imagenes/fruta_background);
-	position: relative;
-}
-
-QVBoxLayout {
-	position: absolute;
-}
-
-QComboBox QAbstractItemView::item {
-    height: 50px;
 }
 
 QComboBox {
