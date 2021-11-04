@@ -1,7 +1,7 @@
 import sys
 import requests, json
 from PyQt5.QtWidgets import(
-    QApplication, QMainWindow, QWidget
+    QApplication, QMainWindow, QWidget, QMessageBox
 )
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import Qt
@@ -30,6 +30,9 @@ class Frutas(QMainWindow, Ui_MainWindow):
         self.familia.stateChanged.connect(self.mostrarFamilia)
         self.orden.stateChanged.connect(self.mostrarOrden)
         self.infoNutricional.stateChanged.connect(self.mostrarInfoNutricional)
+        #conección con el menú y los metodos acercaDe
+        self.actionTabla.triggered.connect(self.acercaDeTabla)
+        self.actionAutor.triggered.connect(self.acercaDeAutor)
 
     
     def mostrarFamilia(self, state):
@@ -114,6 +117,22 @@ class Frutas(QMainWindow, Ui_MainWindow):
     #metodo para coger la fruta seleccionada
     def getFruta(self, nombreFruta):
         self.mostrarInfoFruta(nombreFruta)
+
+    #metodo para que se abra una ventana de info
+    def acercaDeTabla(self):
+        mensaje=QMessageBox()
+        mensaje.setIcon(QMessageBox.Information)
+        mensaje.setInformativeText("<p>Tabla nutricional construida con:</p><p>- PyQt</p><p>- Qt Designer</p><p>- Python</p>")
+        mensaje.setWindowTitle("Acerca de la tabla")
+        mensaje.exec_()
+
+    def acercaDeAutor(self):
+        mensaje=QMessageBox()
+        mensaje.setIcon(QMessageBox.Information)
+        mensaje.setInformativeText("<p>Autor: Alice Bartolozzi</p><p>- Nutricionista y desarrolladora")
+        mensaje.setWindowTitle("Acerca del autor")
+        mensaje.exec_()
+
 
 
 if __name__=="__main__":

@@ -2,18 +2,39 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>606</width>
-    <height>574</height>
+    <width>562</width>
+    <height>573</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowOpacity">
+   <double>100.000000000000000</double>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LeftToRight</enum>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="mouseTracking">
     <bool>false</bool>
    </property>
@@ -56,17 +77,10 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QCheckBox" name="orden">
+        <item row="0" column="0">
+         <widget class="QLabel" name="eleccionFruta">
           <property name="text">
-           <string>Orden</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="4">
-         <widget class="QLabel" name="eleccionCheckBox">
-          <property name="text">
-           <string>Selecciona los datos a mostrar:</string>
+           <string>Elige una Fruta:</string>
           </property>
          </widget>
         </item>
@@ -74,6 +88,13 @@
          <widget class="QCheckBox" name="infoNutricional">
           <property name="text">
            <string>Info nutricional</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QCheckBox" name="orden">
+          <property name="text">
+           <string>Orden</string>
           </property>
          </widget>
         </item>
@@ -90,6 +111,13 @@
           </property>
          </spacer>
         </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QLabel" name="eleccionCheckBox">
+          <property name="text">
+           <string>Selecciona los datos a mostrar:</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="0">
          <spacer name="horizontalSpacer_2">
           <property name="orientation">
@@ -102,13 +130,6 @@
            </size>
           </property>
          </spacer>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="eleccionFruta">
-          <property name="text">
-           <string>Elige una Fruta:</string>
-          </property>
-         </widget>
         </item>
         <item row="0" column="1" colspan="3">
          <widget class="QComboBox" name="listaFrutas"/>
@@ -143,6 +164,9 @@
       </item>
       <item>
        <layout class="QGridLayout" name="layoutFamily">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
         <item row="0" column="0">
          <widget class="QLabel" name="familiaLabel">
           <property name="text">
@@ -161,6 +185,9 @@
       </item>
       <item>
        <layout class="QGridLayout" name="layoutOrder">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
         <item row="0" column="0">
          <widget class="QLabel" name="ordenLabel">
           <property name="text">
@@ -179,6 +206,9 @@
       </item>
       <item>
        <layout class="QGridLayout" name="layoutNutritions">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetFixedSize</enum>
+        </property>
         <item row="2" column="0">
          <widget class="QLabel" name="proteinasLabel">
           <property name="text">
@@ -260,12 +290,36 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>606</width>
+     <width>562</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAcerca_de">
+    <property name="title">
+     <string>Información</string>
+    </property>
+    <widget class="QMenu" name="menuAcerca_de_2">
+     <property name="title">
+      <string>Acerca de.. </string>
+     </property>
+     <addaction name="actionTabla"/>
+     <addaction name="actionAutor"/>
+    </widget>
+    <addaction name="menuAcerca_de_2"/>
+   </widget>
+   <addaction name="menuAcerca_de"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionTabla">
+   <property name="text">
+    <string>Tabla</string>
+   </property>
+  </action>
+  <action name="actionAutor">
+   <property name="text">
+    <string>Autor</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>listaFrutas</tabstop>

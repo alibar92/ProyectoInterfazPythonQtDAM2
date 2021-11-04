@@ -1,0 +1,33 @@
+*{
+	font-family: solid San-Serif;
+	font-size:30px;
+	color: #7B241C;
+	background: #FAD7A0;
+	margin: 1 px;
+	border: 1 px;
+}
+
+QMainWindow {
+	background-image:url(imagenes/fruta_background);
+	position: relative;
+}
+
+QVBoxLayout {
+	position: absolute;
+}
+
+QComboBox QAbstractItemView::item {
+    height: 50px;
+}
+
+QComboBox {
+    border: solid #8E44AD;
+    border-radius: 3px;
+	margin-left: 2px;
+    background: #FCF3CF;
+}
+
+QCheckBox:hover:checked {
+	color: #8E44AD;
+}
+
