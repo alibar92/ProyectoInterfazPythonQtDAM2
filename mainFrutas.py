@@ -1,3 +1,4 @@
+import os
 import sys
 import requests, json
 from PyQt5.QtWidgets import(
@@ -7,14 +8,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import Qt
 from PyQt5.uic import loadUi
 from frutas import Ui_MainWindow
+from reportlab.pdfgen import canvas
+
 
 class Frutas(QMainWindow, Ui_MainWindow):
     
-    #llamo a la API que devuelve un file json con todas las frutas como respuesta
-    resp = requests.get('https://www.fruityvice.com/api/fruit/all').json()
+    
         
     def __init__(self,parent=None):
         super().__init__(parent)
+        try:
+        #llamo a la API que devuelve un file json con todas las frutas como respuesta
+            self.resp = requests.get('https://www.fruityvice.com/api/fruit/all').json()
+        except:
+            self.mensajeError()
+
         self.setupUi(self)
         #lectura del archivo qss de estilo
         self.setStyleSheet(open("estilos.qss", "r").read())
@@ -30,11 +38,25 @@ class Frutas(QMainWindow, Ui_MainWindow):
         self.familia.stateChanged.connect(self.mostrarFamilia)
         self.orden.stateChanged.connect(self.mostrarOrden)
         self.infoNutricional.stateChanged.connect(self.mostrarInfoNutricional)
-        #conección con el menú y los metodos acercaDe
+        #llamo al metodo para conectar los señales recibido en el menu con su acciones  
+        self.connexionSenalesRanuras()
+
+    def mensajeError(self):
+        mensaje=QMessageBox()
+        mensaje.setIcon(QMessageBox.Warning)
+        mensaje.setInformativeText("Ha habido un problema con la conexión, inténtalo de nuevo más tarde")
+        mensaje.setWindowTitle("Error")
+        mensaje.exec_()
+
+    def connexionSenalesRanuras(self):
+        #accion para guardar los datos en un PDF
+        self.actionGuardarComoPDF.triggered.connect(self.guardarPDF)
+        #acción salir llama al cierre de la app
+        self.actionSalir.triggered.connect(self.close)
+        #acciones acercaDeTabla y acercaDeAutor
         self.actionTabla.triggered.connect(self.acercaDeTabla)
         self.actionAutor.triggered.connect(self.acercaDeAutor)
 
-    
     def mostrarFamilia(self, state):
         #si el checkbox esta chequeado, setteo el texto de la label y muestro el valor de familia 
         if (QtCore.Qt.Checked == state):
@@ -81,24 +103,26 @@ class Frutas(QMainWindow, Ui_MainWindow):
     def cargarFrutas(self):
         frutas=["--Select--"] #lista de frutas
         for i in self.resp: #se recorre la respuesta de la API
-            #me quedo con el nombre de cada fruta y lo añado a la lista
+            #me quedo con el nombre de cada fruta y lo anyado a la lista
             frutas.append(i["name"])
-        #añado los nombres en el combobox "listaFrutas"
+        #anyado los nombres en el combobox "listaFrutas"
         self.listaFrutas.addItems(frutas)
         #metodo que indentifica que se ha cambiato el texto en el combo
+        #a su vez nos manda el valor seleccionado
         self.listaFrutas.currentTextChanged.connect(self.getFruta)
 
     #metodo para mostrar los resultados en la interfaz 
     def mostrarInfoFruta(self, nombreFruta):
         #necesito para hacer una busqueda en la lista de frutas (obj Json) con el nombreFruta recibido
-        #me quedo con el nombre de cada fruta
         for i in self.resp:
+            #esta es la busqueda nombrada en el metodo anterior
             if i["name"] == nombreFruta:
+                #y aqui guardo la fruta que he buscado a traves del nombre para tener todos sus datos
                 self.objetoFruta = i
         #cada vez que selecciono una fruta se actualizan los valores de las labels
+        self.mostrarFamilia(self)
         self.mostrarOrden(self)
         self.mostrarInfoNutricional(self)
-        self.mostrarFamilia(self)
         #para quitar los checks y volver a poder chequear lo que queremos mostrar
         self.infoNutricional.setChecked(False)
         self.familia.setChecked(False)
@@ -115,8 +139,27 @@ class Frutas(QMainWindow, Ui_MainWindow):
             self.infoNutricional.setEnabled(False)
 
     #metodo para coger la fruta seleccionada
+    #el parametro nombreFruta es el que nos ha mandado el metodo anterior (currentTextChanged) 
     def getFruta(self, nombreFruta):
+        #este nombre se lo pasamos a nuestro metodo mostrarInfoFruta para coger todos los datos de la fruta a traves de una busqueda
         self.mostrarInfoFruta(nombreFruta)
+
+    #metodo para guardar los datos en un PDF
+    def guardarPDF(self):
+        # Ruta donde quiero crear el PDF
+        c = canvas.Canvas("Ficha_" + self.objetoFruta["name"] + ".pdf")
+        #c = os.system("evince /Formulario.pdf &")
+        c.drawString(100,750,"Ficha con la informacion nutricional de la fruta elegida:")
+        c.drawString(100,700,("Nombre: " + self.objetoFruta["name"]))
+        c.drawString(100,680,("Familia: "+ self.objetoFruta["family"]))
+        c.drawString(100,660,("Orden: "+ self.objetoFruta["family"]))
+        #c.drawString(100,640,("Hidratos: "+ self.mostrarInfoNutricional["carbohydrates"]))
+        #c.drawString(100,620,("Azucares: "+ self.mostrarInfoNutricional["sugar"]))
+      #  c.drawString(100,600,("Proteinas: "+ self.mostrarInfoNutricional["protein"]))
+        #c.drawString(100,580,("Grasas: "+ self.mostrarInfoNutricional["fat"]))
+        #c.drawString(100,560,("Calorias: "+ self.mostrarInfoNutricional["calories"]))
+        c.save()
+    
 
     #metodo para que se abra una ventana de info
     def acercaDeTabla(self):
