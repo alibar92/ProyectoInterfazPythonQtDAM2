@@ -13,8 +13,6 @@ from reportlab.pdfgen import canvas
 
 class Frutas(QMainWindow, Ui_MainWindow):
     
-    
-        
     def __init__(self,parent=None):
         super().__init__(parent)
         try:
@@ -144,20 +142,20 @@ class Frutas(QMainWindow, Ui_MainWindow):
         #este nombre se lo pasamos a nuestro metodo mostrarInfoFruta para coger todos los datos de la fruta a traves de una busqueda
         self.mostrarInfoFruta(nombreFruta)
 
-    #metodo para guardar los datos en un PDF
+    #metodo para guardar los datos de cada fruta en un PDF
     def guardarPDF(self):
-        # Ruta donde quiero crear el PDF
+        #nombre de la ficha cogiendo el name de la fruta elegida
         c = canvas.Canvas("Ficha_" + self.objetoFruta["name"] + ".pdf")
-        #c = os.system("evince /Formulario.pdf &")
-        c.drawString(100,750,"Ficha con la informacion nutricional de la fruta elegida:")
+        #datos que escribo en el pdf
+        c.drawString(100,750,"Ficha con la información nutricional de la fruta elegida:")
         c.drawString(100,700,("Nombre: " + self.objetoFruta["name"]))
         c.drawString(100,680,("Familia: "+ self.objetoFruta["family"]))
         c.drawString(100,660,("Orden: "+ self.objetoFruta["order"]))
-        #c.drawString(100,640,("Hidratos: "+ self.mostrarInfoNutricional["carbohydrates"]))
-        #c.drawString(100,620,("Azucares: "+ self.mostrarInfoNutricional["sugar"]))
-      #  c.drawString(100,600,("Proteinas: "+ self.mostrarInfoNutricional["protein"]))
-        #c.drawString(100,580,("Grasas: "+ self.mostrarInfoNutricional["fat"]))
-        #c.drawString(100,560,("Calorias: "+ self.mostrarInfoNutricional["calories"]))
+        c.drawString(100,640,("Hidratos: "+ str(self.objetoFruta["nutritions"]["carbohydrates"])+" g"))
+        c.drawString(100,620,("Azúcares: "+ str(self.objetoFruta["nutritions"]["sugar"])+" g"))
+        c.drawString(100,600,("Proteinas: "+ str(self.objetoFruta["nutritions"]["protein"])+" g"))
+        c.drawString(100,580,("Grasas: "+ str(self.objetoFruta["nutritions"]["fat"])+" g"))
+        c.drawString(100,560,("Calorias: "+ str(self.objetoFruta["nutritions"]["calories"])+" Kcal"))
         c.save()
     
 

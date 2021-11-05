@@ -1,20 +1,23 @@
-*{
+QLabel, QCheckBox, QComboBox, QPushButton {
 	font-family: solid San-Serif;
-	font-size:30px;
+	font-size:25px;
 	color: #7B241C;
 	background: #FAD7A0;
 	margin: 1 px;
-	border: 1 px;
+	border: 2px solid black;
+	border-radius: 6px;
+}
+
+QLabel#familiaValue, #ordenValue, #hidratosValue, #azucaresValue, #proteinasValue,
+#grasasValue, #caloriasValue {
+	font-style: italic;
 }
 
 QMainWindow {
 	background-image:url(imagenes/fruta_background);
 }
 
-QComboBox {
-    border: solid #8E44AD;
-    border-radius: 3px;
-	margin-left: 2px;
+QComboBox, QPushButton, QMenuBar  {
     background: #FCF3CF;
 }
 
