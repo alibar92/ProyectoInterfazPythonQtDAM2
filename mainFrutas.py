@@ -152,7 +152,7 @@ class Frutas(QMainWindow, Ui_MainWindow):
         c.drawString(100,750,"Ficha con la informacion nutricional de la fruta elegida:")
         c.drawString(100,700,("Nombre: " + self.objetoFruta["name"]))
         c.drawString(100,680,("Familia: "+ self.objetoFruta["family"]))
-        c.drawString(100,660,("Orden: "+ self.objetoFruta["family"]))
+        c.drawString(100,660,("Orden: "+ self.objetoFruta["order"]))
         #c.drawString(100,640,("Hidratos: "+ self.mostrarInfoNutricional["carbohydrates"]))
         #c.drawString(100,620,("Azucares: "+ self.mostrarInfoNutricional["sugar"]))
       #  c.drawString(100,600,("Proteinas: "+ self.mostrarInfoNutricional["protein"]))
