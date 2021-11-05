@@ -2,7 +2,7 @@ import os
 import sys
 import requests, json
 from PyQt5.QtWidgets import(
-    QApplication, QMainWindow, QWidget, QMessageBox
+    QApplication, QComboBox, QMainWindow, QWidget, QMessageBox, QPushButton
 )
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import Qt
@@ -38,7 +38,9 @@ class Frutas(QMainWindow, Ui_MainWindow):
         self.infoNutricional.stateChanged.connect(self.mostrarInfoNutricional)
         #llamo al metodo para conectar los señales recibido en el menu con su acciones  
         self.connexionSenalesRanuras()
-
+        #llamo al metodo para que el regrescarButton al ser clickado refresque los datos
+        self.refrescarButton.clicked.connect(self.presionarRefrescar)
+        
     def mensajeError(self):
         mensaje=QMessageBox()
         mensaje.setIcon(QMessageBox.Warning)
@@ -54,6 +56,39 @@ class Frutas(QMainWindow, Ui_MainWindow):
         #acciones acercaDeTabla y acercaDeAutor
         self.actionTabla.triggered.connect(self.acercaDeTabla)
         self.actionAutor.triggered.connect(self.acercaDeAutor)
+    
+    #metodo que al presionar el boton settea todas las labels a null y se quitan los checks
+    def presionarRefrescar(self):
+        self.ordenLabel.setText("")
+        self.familiaValue.setText("")
+        self.ordenLabel.setText("")
+        self.ordenValue.setText("")
+        self.hidratoLabel.setText("")
+        self.hidratosValue.setText("")
+        self.azucaresLabel.setText("")
+        self.azucaresValue.setText("")
+        self.proteinasLabel.setText("")
+        self.proteinasValue.setText("")
+        self.grasasLabel.setText("")
+        self.grasasValue.setText("")
+        self.caloriasLabel.setText("")
+        self.caloriasValue.setText("")
+        #para quitar los checks y volver a poder chequear lo que queremos mostrar
+        self.familia.setChecked(False)
+        self.orden.setChecked(False)
+        self.infoNutricional.setChecked(False)
+
+    #metodo para cargar las frutas desde la API
+    def cargarFrutas(self):
+        frutas=["--Select--"] #lista de frutas
+        for i in self.resp: #se recorre la respuesta de la API
+            #me quedo con el nombre de cada fruta y lo anyado a la lista
+            frutas.append(i["name"])
+        #anyado los nombres en el combobox "listaFrutas"
+        self.listaFrutas.addItems(frutas)
+        #metodo que indentifica que se ha cambiato el texto en el combo
+        #a su vez nos manda el valor seleccionado
+        self.listaFrutas.currentTextChanged.connect(self.getFruta)
 
     def mostrarFamilia(self, state):
         #si el checkbox esta chequeado, setteo el texto de la label y muestro el valor de familia 
@@ -97,18 +132,6 @@ class Frutas(QMainWindow, Ui_MainWindow):
             self.caloriasLabel.setText("")
             self.caloriasValue.setText("")
 
-    #metodo para cargar las frutas desde la API
-    def cargarFrutas(self):
-        frutas=["--Select--"] #lista de frutas
-        for i in self.resp: #se recorre la respuesta de la API
-            #me quedo con el nombre de cada fruta y lo anyado a la lista
-            frutas.append(i["name"])
-        #anyado los nombres en el combobox "listaFrutas"
-        self.listaFrutas.addItems(frutas)
-        #metodo que indentifica que se ha cambiato el texto en el combo
-        #a su vez nos manda el valor seleccionado
-        self.listaFrutas.currentTextChanged.connect(self.getFruta)
-
     #metodo para mostrar los resultados en la interfaz 
     def mostrarInfoFruta(self, nombreFruta):
         #necesito para hacer una busqueda en la lista de frutas (obj Json) con el nombreFruta recibido
@@ -122,9 +145,9 @@ class Frutas(QMainWindow, Ui_MainWindow):
         self.mostrarOrden(self)
         self.mostrarInfoNutricional(self)
         #para quitar los checks y volver a poder chequear lo que queremos mostrar
-        self.infoNutricional.setChecked(False)
         self.familia.setChecked(False)
         self.orden.setChecked(False)
+        self.infoNutricional.setChecked(False)
         #habilito los checkboxes 
         self.familia.setEnabled(True)
         self.orden.setEnabled(True)
@@ -157,8 +180,7 @@ class Frutas(QMainWindow, Ui_MainWindow):
         c.drawString(100,580,("Grasas: "+ str(self.objetoFruta["nutritions"]["fat"])+" g"))
         c.drawString(100,560,("Calorias: "+ str(self.objetoFruta["nutritions"]["calories"])+" Kcal"))
         c.save()
-    
-
+           
     #metodo para que se abra una ventana de info
     def acercaDeTabla(self):
         mensaje=QMessageBox()
@@ -173,7 +195,6 @@ class Frutas(QMainWindow, Ui_MainWindow):
         mensaje.setInformativeText("<p>Autor: Alice Bartolozzi</p><p>- Nutricionista y desarrolladora")
         mensaje.setWindowTitle("Acerca del autor")
         mensaje.exec_()
-
 
 
 if __name__=="__main__":

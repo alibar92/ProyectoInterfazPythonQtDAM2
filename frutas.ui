@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>794</height>
+    <width>457</width>
+    <height>730</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -235,21 +235,22 @@
         <property name="sizeConstraint">
          <enum>QLayout::SetFixedSize</enum>
         </property>
+        <item row="9" column="2">
+         <widget class="QPushButton" name="salirButton">
+          <property name="text">
+           <string>Salir</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="hidratoLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="7" column="0">
-         <spacer name="verticalSpacer_6">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
@@ -274,22 +275,8 @@
           </property>
          </spacer>
         </item>
-        <item row="7" column="2">
-         <widget class="QPushButton" name="salirButton">
-          <property name="text">
-           <string>Salir</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="hidratoLabel">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="azucaresLabel">
+        <item row="5" column="0">
+         <widget class="QLabel" name="caloriasLabel">
           <property name="text">
            <string/>
           </property>
@@ -309,29 +296,8 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="caloriasLabel">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="hidratosValue">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="azucaresValue">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="proteinasValue">
+        <item row="2" column="0">
+         <widget class="QLabel" name="azucaresLabel">
           <property name="text">
            <string/>
           </property>
@@ -351,6 +317,34 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="hidratosValue">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="proteinasValue">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="azucaresValue">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QPushButton" name="refrescarButton">
+          <property name="text">
+           <string>Refrescar</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -362,7 +356,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>421</width>
+     <width>457</width>
      <height>21</height>
     </rect>
    </property>
@@ -427,8 +421,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>318</x>
-     <y>657</y>
+     <x>278</x>
+     <y>607</y>
     </hint>
     <hint type="destinationlabel">
      <x>343</x>
