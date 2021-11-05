@@ -14,7 +14,7 @@ QLabel#familiaValue, #ordenValue, #hidratosValue, #azucaresValue, #proteinasValu
 }
 
 QMainWindow {
-	background-image:url(imagenes/fruta_background);
+	border-image:url(imagenes/fruta_background);
 }
 
 QComboBox, QPushButton, QMenuBar  {
