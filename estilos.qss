@@ -14,7 +14,7 @@ QLabel#familiaValue, #ordenValue, #hidratosValue, #azucaresValue, #proteinasValu
 }
 
 QMainWindow {
-	border-image:url(imagenes/fruta_background);
+	background-image:url(imagenes/fruta_background1);
 }
 
 QComboBox, QPushButton, QMenuBar  {
@@ -24,4 +24,5 @@ QComboBox, QPushButton, QMenuBar  {
 QCheckBox:hover:checked {
 	color: #8E44AD;
 }
+
 
